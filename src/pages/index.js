@@ -1,10 +1,11 @@
 import React from "react"
 import {
+  AspectRatio,
+  Badge,
+  Container,
+  Grid,
   Heading,
   Text,
-  Container,
-  AspectRatio,
-  Grid,
 } from "theme-ui"
 
 import Layout from "../components/layout"
@@ -41,6 +42,7 @@ const IndexPage = () => {
       <Container
         padding={2}
         sx={{
+          bg: 'secondary',
           padding: 2,
         }}
       >
@@ -48,25 +50,36 @@ const IndexPage = () => {
           Collection:
         </Heading>
 
+        <Text>
+          {collection.length === 0 && 'No items in collection'}
+        </Text>
+
         <Grid
           columns={3}
           gap={2}
         >
-          {collection.length === 0 && 'No items in collection'}
-
           {collection.map(release => (
             <AspectRatio
               ratio={1/1}
               key={release.id}
-              bg="white"
+              sx={{
+                bg: 'white',
+                border: '1px solid',
+                borderColor: 'muted',
+                overflow: 'hidden',
+              }}
             >
-              <Text>
-                id: {release.id}
-              </Text>
+              <Grid
+                gap={2}
+              >
+                <Badge>
+                  id: {release.id}
+                </Badge>
 
-              <Text>
-                {release.basic_information.genres.join(' / ')}
-              </Text>
+                <Badge>
+                  {release.basic_information.genres.join(' / ')}
+                </Badge>
+              </Grid>
 
               <Image />
             </AspectRatio>
