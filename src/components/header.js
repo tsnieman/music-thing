@@ -1,21 +1,18 @@
 import { Link } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
+import {
+  Box,
+  Container,
+  Link as TLink,
+} from "theme-ui"
 
 const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
+  <Box
+    as="header"
+    bg="primary"
   >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
+    <Container>
       <h1 style={{ margin: 0 }}>
         <Link
           to="/"
@@ -27,8 +24,16 @@ const Header = ({ siteTitle }) => (
           {siteTitle}
         </Link>
       </h1>
-    </div>
-  </header>
+
+      <TLink
+        as={Link}
+        to="/about/"
+        sx={{ color: 'white' }}
+      >
+        About
+      </TLink>
+    </Container>
+  </Box>
 )
 
 Header.propTypes = {
