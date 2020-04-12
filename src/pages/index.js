@@ -11,9 +11,12 @@ import {
   Slider,
   Text,
 } from 'theme-ui'
+import createPersistedState from 'use-persisted-state'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
+
+const useAlbumSizeState = createPersistedState('albumSize')
 
 const IndexPage = () => {
   const {
@@ -36,7 +39,15 @@ const IndexPage = () => {
     `
   )
 
-  const [albumSize, setAlbumSize] = React.useState(256)
+  const [albumSize, setAlbumSize] = useAlbumSizeState(256)
+  const albumSizeElement = React.useRef(null)
+  React.useEffect(() => {
+    const albumSizeElementIsFocused =
+      document.activeElement.id === albumSizeElement.current.id
+    const shouldSyncAlbumSizeSlider =
+      document.hasFocus() && albumSizeElementIsFocused
+    if (!shouldSyncAlbumSizeSlider) albumSizeElement.current.value = albumSize
+  }, [albumSize])
 
   return (
     <Layout>
@@ -53,6 +64,7 @@ const IndexPage = () => {
 
             <Slider
               id="album-size"
+              ref={albumSizeElement}
               defaultValue={albumSize}
               onChange={(e) => setAlbumSize(e.target.value)}
               min={256}
