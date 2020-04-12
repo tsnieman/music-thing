@@ -5,3 +5,4 @@ labelRule:
     - "bug"
     - "enhancement"
     - "documentation"
+    - "dependencies"
