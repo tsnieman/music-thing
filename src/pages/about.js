@@ -10,6 +10,8 @@ const SecondPage = () => (
 
     <h1>Hi from the second page</h1>
 
+    garbage
+
     <p>Welcome to page 2</p>
 
     <Link to="/">Homepage</Link>
