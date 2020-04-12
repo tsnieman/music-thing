@@ -21,7 +21,9 @@
     "theme-ui": "^0.3.1"
   },
   "devDependencies": {
-    "prettier": "^1.19.1"
+    "husky": "^4.2.5",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1"
   },
   "keywords": [
     "gatsby"
@@ -42,5 +44,10 @@
   },
   "bugs": {
     "url": "https://github.com/tsnieman/music-thing/issues"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
