@@ -7,6 +7,8 @@ import {
   Grid,
   Heading,
   Image as TImage,
+  Label,
+  Slider,
   Text,
 } from 'theme-ui'
 
@@ -34,16 +36,34 @@ const IndexPage = () => {
     `
   )
 
+  const [albumSize, setAlbumSize] = React.useState(256)
+
   return (
     <Layout>
       <SEO title="Home" />
 
       <Box padding={2}>
-        <Heading>Collection:</Heading>
+        <Grid columns="1fr minmax(min-content, 30ch)">
+          <Heading>Collection:</Heading>
+
+          <Grid columns="min-content 1fr">
+            <Label htmlFor="album-size" sx={{ whiteSpace: 'nowrap' }}>
+              Album size:
+            </Label>
+
+            <Slider
+              id="album-size"
+              defaultValue={albumSize}
+              onChange={(e) => setAlbumSize(e.target.value)}
+              min={256}
+              max={512}
+            />
+          </Grid>
+        </Grid>
 
         <Text>{releases.length === 0 && 'No items in collection'}</Text>
 
-        <Grid columns={`repeat(auto-fit, minmax(256px, 1fr))`} gap={2}>
+        <Grid columns={`repeat(auto-fit, minmax(${albumSize}px, 1fr))`} gap={2}>
           {releases.map((release, releaseIndex) => (
             <AspectRatio
               ratio={1 / 1}
