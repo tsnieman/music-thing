@@ -1,5 +1,5 @@
-import { useStaticQuery, graphql } from "gatsby"
-import React from "react"
+import { useStaticQuery, graphql } from 'gatsby'
+import React from 'react'
 import {
   AspectRatio,
   Badge,
@@ -8,16 +8,14 @@ import {
   Heading,
   Image as TImage,
   Text,
-} from "theme-ui"
+} from 'theme-ui'
 
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import Layout from '../components/layout'
+import SEO from '../components/seo'
 
 const IndexPage = () => {
   const {
-    discogsReleases: {
-      releases,
-    },
+    discogsReleases: { releases },
   } = useStaticQuery(
     graphql`
       query {
@@ -40,24 +38,15 @@ const IndexPage = () => {
     <Layout>
       <SEO title="Home" />
 
-      <Box
-        padding={2}
-      >
-        <Heading>
-          Collection:
-        </Heading>
+      <Box padding={2}>
+        <Heading>Collection:</Heading>
 
-        <Text>
-          {releases.length === 0 && 'No items in collection'}
-        </Text>
+        <Text>{releases.length === 0 && 'No items in collection'}</Text>
 
-        <Grid
-          columns={`repeat(auto-fit, minmax(256px, 1fr))`}
-          gap={2}
-        >
+        <Grid columns={`repeat(auto-fit, minmax(256px, 1fr))`} gap={2}>
           {releases.map((release, releaseIndex) => (
             <AspectRatio
-              ratio={1/1}
+              ratio={1 / 1}
               key={`${release.id}-${releaseIndex}`}
               sx={{
                 bg: 'white',
@@ -74,9 +63,7 @@ const IndexPage = () => {
                   left: 0,
                 }}
               >
-                <Badge>
-                  id: {release.id}
-                </Badge>
+                <Badge>id: {release.id}</Badge>
               </Box>
 
               <TImage
