@@ -1,9 +1,9 @@
+import { useStaticQuery, graphql } from "gatsby"
 import React from "react"
 import {
   AspectRatio,
   Badge,
   Box,
-  Container,
   Grid,
   Heading,
   Image as TImage,
@@ -14,52 +14,48 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 
 const IndexPage = () => {
-  const [collection, setCollection] = React.useState([]);
-
-  // TODO feels like bad practice to circumvent gatsby data layer, but i dont really care for the
-  // time being.
-  React.useEffect(() => {
-    console.log('effect');
-
-    fetch('https://pokeapi.co/api/v2/pokemon/ditto')
-      .then(res => res.json())
-      .then(json => console.log({ ditto: json }));
-
-    fetch('https://api.discogs.com/users/tsnieman/collection/folders/0/releases?token=maSnEZtPwLRMXfgzfpjkAMeZMXvzendkTldZVKup')
-      .then(res => res.json())
-      .then(json => {
-        console.log({ discogs: json })
-
-        const { releases } = json;
-
-        setCollection(releases);
-      });
-  }, []);
+  const {
+    discogsReleases: {
+      releases,
+    },
+  } = useStaticQuery(
+    graphql`
+      query {
+        discogsReleases {
+          id
+          releases {
+            id
+            basic_information {
+              id
+              title
+              cover_image
+            }
+          }
+        }
+      }
+    `
+  )
 
   return (
     <Layout>
       <SEO title="Home" />
 
-      <Container
+      <Box
         padding={2}
-        sx={{
-          bg: 'secondary',
-          padding: 2,
-        }}
       >
         <Heading>
           Collection:
         </Heading>
 
         <Text>
-          {collection.length === 0 && 'No items in collection'}
+          {releases.length === 0 && 'No items in collection'}
         </Text>
 
         <Grid
-          columns={3}
+          columns={`repeat(auto-fit, minmax(256px, 1fr))`}
           gap={2}
         >
-          {collection.map((release, releaseIndex) => (
+          {releases.map((release, releaseIndex) => (
             <AspectRatio
               ratio={1/1}
               key={`${release.id}-${releaseIndex}`}
@@ -73,16 +69,13 @@ const IndexPage = () => {
                 sx={{
                   padding: 1,
                   position: 'absolute',
-                  left: 0,
                   right: 0,
+                  bottom: 0,
+                  left: 0,
                 }}
               >
                 <Badge>
                   id: {release.id}
-                </Badge>
-
-                <Badge>
-                  {release.basic_information.genres.join(' / ')}
                 </Badge>
               </Box>
 
@@ -97,7 +90,7 @@ const IndexPage = () => {
             </AspectRatio>
           ))}
         </Grid>
-      </Container>
+      </Box>
     </Layout>
   )
 }
