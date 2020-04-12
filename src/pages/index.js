@@ -2,14 +2,15 @@ import React from "react"
 import {
   AspectRatio,
   Badge,
+  Box,
   Container,
   Grid,
   Heading,
+  Image as TImage,
   Text,
 } from "theme-ui"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
 
 const IndexPage = () => {
@@ -24,7 +25,7 @@ const IndexPage = () => {
       .then(res => res.json())
       .then(json => console.log({ ditto: json }));
 
-    fetch('https://api.discogs.com/users/tsnieman/collection/folders/0/releases')
+    fetch('https://api.discogs.com/users/tsnieman/collection/folders/0/releases?token=maSnEZtPwLRMXfgzfpjkAMeZMXvzendkTldZVKup')
       .then(res => res.json())
       .then(json => {
         console.log({ discogs: json })
@@ -58,19 +59,23 @@ const IndexPage = () => {
           columns={3}
           gap={2}
         >
-          {collection.map(release => (
+          {collection.map((release, releaseIndex) => (
             <AspectRatio
               ratio={1/1}
-              key={release.id}
+              key={`${release.id}-${releaseIndex}`}
               sx={{
                 bg: 'white',
                 border: '1px solid',
                 borderColor: 'muted',
-                overflow: 'hidden',
               }}
             >
-              <Grid
-                gap={2}
+              <Box
+                sx={{
+                  padding: 1,
+                  position: 'absolute',
+                  left: 0,
+                  right: 0,
+                }}
               >
                 <Badge>
                   id: {release.id}
@@ -79,9 +84,16 @@ const IndexPage = () => {
                 <Badge>
                   {release.basic_information.genres.join(' / ')}
                 </Badge>
-              </Grid>
+              </Box>
 
-              <Image />
+              <TImage
+                src={release.basic_information.cover_image}
+                sx={{
+                  objectFit: 'cover',
+                  width: '100%',
+                  height: '100%',
+                }}
+              />
             </AspectRatio>
           ))}
         </Grid>
