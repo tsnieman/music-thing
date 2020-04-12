@@ -8,7 +8,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-import { ThemeProvider } from "theme-ui"
+import { ThemeProvider,  Grid } from "theme-ui"
 import theme from "gatsby-plugin-theme-ui"
 
 import Header from "./header"
@@ -27,21 +27,20 @@ const Layout = ({ children }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
+      <Grid
+        gap={4}
+        columns="1fr"
       >
+        <Header siteTitle={data.site.siteMetadata.title} />
+
         <main>{children}</main>
+
         <footer>
           © {new Date().getFullYear()}, Built with
           {` `}
           <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>
-      </div>
+      </Grid>
     </ThemeProvider>
   )
 }
