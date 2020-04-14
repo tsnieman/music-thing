@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { useStaticQuery, graphql } from 'gatsby'
-import { ThemeProvider, Box } from 'theme-ui'
-import theme from 'gatsby-plugin-theme-ui'
+import { Box } from 'theme-ui'
 
 import Header from './header'
 import './layout.css'
@@ -19,13 +18,11 @@ const Layout = ({ children, ...props }) => {
   `)
 
   return (
-    <ThemeProvider theme={theme}>
-      <Box {...props}>
-        <Header siteTitle={data.site.siteMetadata.title} />
+    <Box {...props}>
+      <Header siteTitle={data.site.siteMetadata.title} />
 
-        {children}
-      </Box>
-    </ThemeProvider>
+      {children}
+    </Box>
   )
 }
 
