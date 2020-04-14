@@ -39,7 +39,7 @@ const IndexPage = () => {
     `
   )
 
-  const [albumSize, setAlbumSize] = useAlbumSizeState(256)
+  const [albumSize, setAlbumSize] = useAlbumSizeState(4)
   const albumSizeElement = React.useRef(null)
   React.useEffect(() => {
     if (albumSizeElement.current) {
@@ -57,7 +57,6 @@ const IndexPage = () => {
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        background: 'red',
       }}
     >
       <SEO title="Home" />
@@ -67,11 +66,12 @@ const IndexPage = () => {
         columns="30ch 1fr 30ch"
         sx={{
           flex: '1 1 auto',
-          background: 'orange',
+          maxHeight: '100%',
+          minHeight: 0,
 
           '& > *': {
-            // background: 'green',
-            // border: '1px solid cyan',
+            minHeight: 0,
+            overflow: 'auto',
           },
         }}
       >
@@ -84,7 +84,7 @@ const IndexPage = () => {
             flexDirection: 'column',
           }}
         >
-          <Flex sx={{ flexDirection: 'row' }} p={2}>
+          <Flex sx={{ flexDirection: 'row' }} px={2}>
             <Grid
               columns="min-content 1fr"
               ml="auto"
@@ -102,8 +102,9 @@ const IndexPage = () => {
                 ref={albumSizeElement}
                 defaultValue={albumSize}
                 onChange={(e) => setAlbumSize(e.target.value)}
-                min={128}
-                max={512}
+                min={2}
+                max={12}
+                sx={{ transform: 'scaleX(-1)' }}
               />
             </Grid>
           </Flex>
@@ -120,10 +121,7 @@ const IndexPage = () => {
           >
             <Text>{releases.length === 0 && 'No items in collection'}</Text>
 
-            <Grid
-              columns={`repeat(auto-fit, minmax(${albumSize}px, 1fr))`}
-              gap={3}
-            >
+            <Grid columns={`repeat(${albumSize}, 1fr)`} gap={3} pb={4}>
               {releases.map((release, releaseIndex) => (
                 <AspectRatio
                   ratio={1 / 1}
@@ -160,15 +158,12 @@ const IndexPage = () => {
           </Box>
         </Flex>
 
-        <Box bg="background">
-          Playlist
-          {/*
+        <Box>
           {Array(45)
             .fill(0)
             .map((i, index) => (
               <Text key={index}>Playlist</Text>
             ))}
-          */}
         </Box>
       </Grid>
     </Layout>
