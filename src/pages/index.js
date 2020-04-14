@@ -4,8 +4,8 @@ import {
   AspectRatio,
   Badge,
   Box,
+  Flex,
   Grid,
-  Heading,
   Image as TImage,
   Label,
   Slider,
@@ -42,74 +42,135 @@ const IndexPage = () => {
   const [albumSize, setAlbumSize] = useAlbumSizeState(256)
   const albumSizeElement = React.useRef(null)
   React.useEffect(() => {
-    const albumSizeElementIsFocused =
-      document.activeElement.id === albumSizeElement.current.id
-    const shouldSyncAlbumSizeSlider =
-      document.hasFocus() && albumSizeElementIsFocused
-    if (!shouldSyncAlbumSizeSlider) albumSizeElement.current.value = albumSize
+    if (albumSizeElement.current) {
+      const albumSizeElementIsFocused =
+        document.activeElement.id === albumSizeElement.current.id
+      const shouldSyncAlbumSizeSlider =
+        document.hasFocus() && albumSizeElementIsFocused
+      if (!shouldSyncAlbumSizeSlider) albumSizeElement.current.value = albumSize
+    }
   }, [albumSize])
 
   return (
-    <Layout>
+    <Layout
+      sx={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        background: 'red',
+      }}
+    >
       <SEO title="Home" />
 
-      <Box padding={2}>
-        <Grid columns="1fr minmax(min-content, 30ch)">
-          <Heading>Collection:</Heading>
+      <Grid
+        as="main"
+        columns="30ch 1fr 30ch"
+        sx={{
+          flex: '1 1 auto',
+          background: 'orange',
 
-          <Grid columns="min-content 1fr">
-            <Label htmlFor="album-size" sx={{ whiteSpace: 'nowrap' }}>
-              Album size:
-            </Label>
+          '& > *': {
+            // background: 'green',
+            // border: '1px solid cyan',
+          },
+        }}
+      >
+        <Box>
+          <Text>Sidebar</Text>
+        </Box>
 
-            <Slider
-              id="album-size"
-              ref={albumSizeElement}
-              defaultValue={albumSize}
-              onChange={(e) => setAlbumSize(e.target.value)}
-              min={256}
-              max={512}
-            />
-          </Grid>
-        </Grid>
-
-        <Text>{releases.length === 0 && 'No items in collection'}</Text>
-
-        <Grid columns={`repeat(auto-fit, minmax(${albumSize}px, 1fr))`} gap={2}>
-          {releases.map((release, releaseIndex) => (
-            <AspectRatio
-              ratio={1 / 1}
-              key={`${release.id}-${releaseIndex}`}
+        <Flex
+          sx={{
+            flexDirection: 'column',
+          }}
+        >
+          <Flex sx={{ flexDirection: 'row' }} p={2}>
+            <Grid
+              columns="min-content 1fr"
+              ml="auto"
               sx={{
-                bg: 'white',
-                border: '1px solid',
-                borderColor: 'muted',
+                alignItems: 'center',
+                padding: 2,
               }}
             >
-              <Box
-                sx={{
-                  padding: 1,
-                  position: 'absolute',
-                  right: 0,
-                  bottom: 0,
-                  left: 0,
-                }}
-              >
-                <Badge>id: {release.id}</Badge>
-              </Box>
+              <Label htmlFor="album-size" sx={{ whiteSpace: 'nowrap' }}>
+                Album size:
+              </Label>
 
-              <TImage
-                src={release.basic_information.cover_image}
-                sx={{
-                  objectFit: 'cover',
-                  width: '100%',
-                  height: '100%',
-                }}
+              <Slider
+                id="album-size"
+                ref={albumSizeElement}
+                defaultValue={albumSize}
+                onChange={(e) => setAlbumSize(e.target.value)}
+                min={128}
+                max={512}
               />
-            </AspectRatio>
-          ))}
-        </Grid>
-      </Box>
+            </Grid>
+          </Flex>
+
+          <Box
+            sx={{
+              padding: 2,
+
+              // Vertical scrollbar
+              flex: '1 1 auto',
+              overflow: 'auto',
+              height: 0,
+            }}
+          >
+            <Text>{releases.length === 0 && 'No items in collection'}</Text>
+
+            <Grid
+              columns={`repeat(auto-fit, minmax(${albumSize}px, 1fr))`}
+              gap={3}
+            >
+              {releases.map((release, releaseIndex) => (
+                <AspectRatio
+                  ratio={1 / 1}
+                  key={`${release.id}-${releaseIndex}`}
+                  sx={{
+                    bg: 'white',
+                    border: '1px solid',
+                    borderColor: 'muted',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      padding: 1,
+                      position: 'absolute',
+                      right: 0,
+                      bottom: 0,
+                      left: 0,
+                    }}
+                  >
+                    <Badge>id: {release.id}</Badge>
+                  </Box>
+
+                  <TImage
+                    src={release.basic_information.cover_image}
+                    sx={{
+                      objectFit: 'cover',
+                      width: '100%',
+                      height: '100%',
+                    }}
+                  />
+                </AspectRatio>
+              ))}
+            </Grid>
+          </Box>
+        </Flex>
+
+        <Box bg="background">
+          Playlist
+          {/*
+          {Array(45)
+            .fill(0)
+            .map((i, index) => (
+              <Text key={index}>Playlist</Text>
+            ))}
+          */}
+        </Box>
+      </Grid>
     </Layout>
   )
 }

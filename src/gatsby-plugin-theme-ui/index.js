@@ -1,4 +1,8 @@
 export default {
+  // set the initial color mode to dark when @media (prefers-color-scheme: dark)
+  // matches, or light when @media (prefers-color-scheme: light) matches
+  // useColorSchemeMediaQuery: true,
+
   sizes: {
     container: 960,
   },
