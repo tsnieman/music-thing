@@ -634,6 +634,7 @@ body,
 #___gatsby,
 #gatsby-focus-wrapper {
   height: 100%;
+  overflow: hidden; /* hides scrollbar even when no scrollable content */
 }
 
 div[role='group'][tabindex] {
