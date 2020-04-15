@@ -151,7 +151,7 @@ export default {
   },
   buttons: {
     primary: {
-      color: 'buttonBgPrimary',
+      color: 'buttonTextPrimary',
       bg: 'buttonBgPrimary',
       '&:hover': {
         bg: lighten('buttonBgPrimary', 0.15),

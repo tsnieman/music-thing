@@ -14,7 +14,7 @@ const Header = ({ siteTitle }) => {
         </TLink>
 
         <Grid columns={2} gap={2} ml="auto">
-          <Button as={Link} to="/about/" color="white" ml={2}>
+          <Button as={Link} to="/about/" ml={2}>
             About
           </Button>
 

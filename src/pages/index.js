@@ -4,6 +4,7 @@ import {
   AspectRatio,
   Badge,
   Box,
+  Button,
   Card,
   Flex,
   Grid,
@@ -53,6 +54,8 @@ const IndexPage = () => {
       if (!shouldSyncAlbumSizeSlider) albumSizeElement.current.value = albumSize
     }
   }, [albumSize])
+
+  const [albumSnap, setAlbumSnap] = React.useState('proximity')
 
   return (
     <Layout
@@ -116,29 +119,45 @@ const IndexPage = () => {
             flexDirection: 'column',
           }}
         >
-          <Flex sx={{ flexDirection: 'row' }} px={2}>
-            <Grid
-              columns="min-content 1fr"
-              ml="auto"
-              sx={{
-                alignItems: 'center',
-                padding: 2,
-              }}
-            >
-              <Label htmlFor="album-size" sx={{ whiteSpace: 'nowrap' }}>
-                Album size:
-              </Label>
+          <Flex sx={{ flexDirection: 'row' }} p={2}>
+            <Flex sx={{ flexDirection: 'row' }} p={2} ml="auto">
+              <Button
+                variant="primary"
+                sx={{
+                  cursor: 'pointer',
+                  width: 'min-content',
+                  whiteSpace: 'nowrap',
+                }}
+                onClick={(e) => {
+                  setAlbumSnap(albumSnap === 'none' ? 'proximity' : 'none')
+                }}
+                mr={1}
+              >
+                Snap: {albumSnap}
+              </Button>
 
-              <Slider
-                id="album-size"
-                ref={albumSizeElement}
-                defaultValue={albumSize}
-                onChange={(e) => setAlbumSize(e.target.value)}
-                min={2}
-                max={12}
-                sx={{ transform: 'scaleX(-1)' }}
-              />
-            </Grid>
+              <Grid
+                columns="min-content 1fr"
+                sx={{
+                  alignItems: 'center',
+                  padding: 2,
+                }}
+              >
+                <Label htmlFor="album-size" sx={{ whiteSpace: 'nowrap' }}>
+                  Album size:
+                </Label>
+
+                <Slider
+                  id="album-size"
+                  ref={albumSizeElement}
+                  defaultValue={albumSize}
+                  onChange={(e) => setAlbumSize(e.target.value)}
+                  min={2}
+                  max={12}
+                  sx={{ transform: 'scaleX(-1)' }}
+                />
+              </Grid>
+            </Flex>
           </Flex>
 
           <Box
@@ -149,13 +168,22 @@ const IndexPage = () => {
               flex: '1 1 auto',
               overflow: 'auto',
               height: 0,
+
+              scrollSnapType: `y ${albumSnap}`,
             }}
           >
             <Text>{releases.length === 0 && 'No items in collection'}</Text>
 
             <Grid columns={`repeat(${albumSize}, 1fr)`} gap={2} pb={4}>
               {releases.map((release, releaseIndex) => (
-                <Card key={`${release.id}-${releaseIndex}`} variant="album">
+                <Card
+                  key={`${release.id}-${releaseIndex}`}
+                  variant="album"
+                  sx={{
+                    scrollSnapAlign: 'start',
+                    scrollMarginTop: (i) => i.space[2],
+                  }}
+                >
                   <AspectRatio
                     ratio={1 / 1}
                     key={`${release.id}-${releaseIndex}`}
