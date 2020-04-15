@@ -1,38 +1,34 @@
 import { Link } from 'gatsby'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { Box, Container, Link as TLink, useColorMode } from 'theme-ui'
+import { Box, Button, Flex, Grid, Link as TLink, useColorMode } from 'theme-ui'
 
 const Header = ({ siteTitle }) => {
   const [colorMode, setColorMode] = useColorMode()
 
   return (
-    <Box as="header" bg="primary">
-      <Container>
-        <h1 style={{ margin: 0 }}>
-          <Link
-            to="/"
-            style={{
-              color: `white`,
-              textDecoration: `none`,
-            }}
-          >
-            {siteTitle}
-          </Link>
-        </h1>
-
-        <TLink as={Link} to="/about/" sx={{ color: 'white' }}>
-          About
+    <Box as="header" bg="primary" p={2}>
+      <Flex sx={{ flexDirection: 'row', alignItems: 'center' }}>
+        <TLink as={Link} to="/" color="white" sx={{ fontWeight: 'bold' }}>
+          {siteTitle}
         </TLink>
 
-        <button
-          onClick={(e) => {
-            setColorMode(colorMode === 'default' ? 'dark' : 'default')
-          }}
-        >
-          Toggle {colorMode === 'default' ? 'Dark' : 'Light'}
-        </button>
-      </Container>
+        <Grid columns={2} gap={2} ml="auto">
+          <Button as={Link} to="/about/" color="white" ml={2}>
+            About
+          </Button>
+
+          <Button
+            variant="secondary"
+            sx={{ cursor: 'pointer' }}
+            onClick={(e) => {
+              setColorMode(colorMode === 'default' ? 'dark' : 'default')
+            }}
+          >
+            Toggle {colorMode === 'default' ? 'Dark' : 'Light'}
+          </Button>
+        </Grid>
+      </Flex>
     </Box>
   )
 }

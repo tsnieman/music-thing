@@ -1,3 +1,5 @@
+import { darken, lighten } from '@theme-ui/color'
+
 export default {
   // set the initial color mode to dark when @media (prefers-color-scheme: dark)
   // matches, or light when @media (prefers-color-scheme: light) matches
@@ -26,14 +28,25 @@ export default {
   colors: {
     text: '#000',
     background: '#fff',
-    primary: '#07c',
-    secondary: '#30c',
+    primary: '#816786',
+    secondary: '#B7D2BF',
     muted: '#f6f6f6',
+    border: '#eee',
+
+    buttonBgPrimary: '#7A486E',
+    buttonTextPrimary: 'white',
+
+    buttonBgSecondary: '#D8E7CA',
+    buttonTextSecondary: 'black',
 
     modes: {
       dark: {
         text: '#fff',
         background: '#191919',
+        muted: '#2d2d2d',
+
+        buttonBgSecondary: 'black',
+        buttonTextSecondary: 'white',
       },
     },
   },
@@ -120,6 +133,35 @@ export default {
     },
     img: {
       maxWidth: '100%',
+    },
+  },
+  cards: {
+    primary: {
+      padding: 2,
+      borderRadius: 4,
+      boxShadow: '0 0 8px rgba(0, 0, 0, 0.125)',
+    },
+
+    album: {
+      padding: 1,
+      border: '1px solid',
+      borderColor: 'border',
+    },
+  },
+  buttons: {
+    primary: {
+      color: 'buttonBgPrimary',
+      bg: 'buttonBgPrimary',
+      '&:hover': {
+        bg: lighten('buttonBgPrimary', 0.15),
+      },
+    },
+    secondary: {
+      color: 'buttonTextSecondary',
+      bg: 'buttonBgSecondary',
+      '&:hover': {
+        bg: darken('buttonBgSecondary', 0.15),
+      },
     },
   },
 }
