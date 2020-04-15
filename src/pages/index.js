@@ -55,7 +55,7 @@ const IndexPage = () => {
     }
   }, [albumSize])
 
-  const [albumSnap, setAlbumSnap] = React.useState('proximity')
+  const [albumSnap, setAlbumSnap] = React.useState('mandatory')
 
   return (
     <Layout
@@ -129,7 +129,7 @@ const IndexPage = () => {
                   whiteSpace: 'nowrap',
                 }}
                 onClick={(e) => {
-                  setAlbumSnap(albumSnap === 'none' ? 'proximity' : 'none')
+                  setAlbumSnap(albumSnap === 'none' ? 'mandatory' : 'none')
                 }}
                 mr={1}
               >
