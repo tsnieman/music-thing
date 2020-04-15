@@ -27,11 +27,11 @@ export default {
   },
   colors: {
     text: '#000',
-    background: '#fff',
+    background: '#eee',
     primary: '#816786',
     secondary: '#B7D2BF',
     muted: '#f6f6f6',
-    border: '#eee',
+    border: '#ccc',
 
     buttonBgPrimary: '#7A486E',
     buttonTextPrimary: 'white',
@@ -143,9 +143,10 @@ export default {
     },
 
     album: {
-      padding: 1,
+      padding: 2,
       border: '1px solid',
       borderColor: 'border',
+      background: 'white',
     },
   },
   buttons: {
