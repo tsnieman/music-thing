@@ -206,6 +206,7 @@ const IndexPage = () => {
                     </Box>
 
                     <TImage
+                      title={`Cover art for “${release.basic_information.title}”`}
                       loading="lazy"
                       src={release.basic_information.cover_image}
                       sx={{
@@ -243,6 +244,7 @@ const IndexPage = () => {
               }}
             >
               <TImage
+                title={`Cover art for “${releases[48].basic_information.title}”`}
                 src={releases[48].basic_information.cover_image}
                 sx={{
                   objectFit: 'cover',
