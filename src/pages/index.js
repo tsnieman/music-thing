@@ -206,6 +206,7 @@ const IndexPage = () => {
                     </Box>
 
                     <TImage
+                      loading="lazy"
                       src={release.basic_information.cover_image}
                       sx={{
                         objectFit: 'cover',
