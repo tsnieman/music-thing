@@ -11,6 +11,7 @@ const DISCOGS_TOKEN = `maSnEZtPwLRMXfgzfpjkAMeZMXvzendkTldZVKup`
 exports.sourceNodes = async ({
   actions: { createNode },
   createContentDigest,
+  createNodeId,
 }) => {
   // get data from Discogs at build time
   const result = await fetch(
@@ -30,18 +31,17 @@ exports.sourceNodes = async ({
     releases.push(...releasePage)
   }
 
-  // create node for build time data
-  createNode({
-    // Queryable fields
-    releases,
-
-    // required fields (for createNode)
-    id: `discogs-build-time-data`,
-    parent: null,
-    children: [],
-    internal: {
-      type: `DiscogsReleases`,
-      contentDigest: createContentDigest(resultData),
-    },
+  releases.forEach((release, i) => {
+    createNode({
+      ...release,
+      id: createNodeId(release.instance_id),
+      parent: null,
+      children: [],
+      internal: {
+        type: 'CollectionRelease',
+        content: JSON.stringify(release),
+        contentDigest: createContentDigest(release),
+      },
+    })
   })
 }

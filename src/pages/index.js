@@ -24,24 +24,27 @@ const useAlbumSizeState = createPersistedState('albumSize')
 
 const IndexPage = () => {
   const {
-    discogsReleases: { releases },
+    allCollectionRelease: { edges },
   } = useStaticQuery(
     graphql`
       query {
-        discogsReleases {
-          id
-          releases {
-            id
-            basic_information {
+        allCollectionRelease {
+          edges {
+            node {
               id
-              title
-              cover_image
+              basic_information {
+                id
+                title
+                cover_image
+              }
             }
           }
         }
       }
     `
   )
+
+  const releases = edges.map(({ node: release }) => release)
 
   const [albumSize, setAlbumSize] = useAlbumSizeState(4)
   const albumSizeElement = React.useRef(null)
