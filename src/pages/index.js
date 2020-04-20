@@ -1,6 +1,9 @@
+/** @jsx jsx */
 import { useStaticQuery, graphql } from 'gatsby'
+import Img from 'gatsby-image'
 import React from 'react'
 import {
+  jsx,
   AspectRatio,
   Badge,
   Box,
@@ -9,7 +12,6 @@ import {
   Flex,
   Grid,
   IconButton,
-  Image as TImage,
   Label,
   NavLink,
   Slider,
@@ -35,7 +37,13 @@ const IndexPage = () => {
               basic_information {
                 id
                 title
-                cover_image
+                cover_image {
+                  childImageSharp {
+                    fluid(cropFocus: CENTER, maxWidth: 1000, maxHeight: 1000) {
+                      ...GatsbyImageSharpFluid_withWebp
+                    }
+                  }
+                }
               }
             }
           }
@@ -196,6 +204,20 @@ const IndexPage = () => {
                       borderColor: 'muted',
                     }}
                   >
+                    <Img
+                      title={`Cover art for “${release.basic_information.title}”`}
+                      loading="lazy"
+                      fluid={
+                        release.basic_information.cover_image.childImageSharp
+                          .fluid
+                      }
+                      sx={{
+                        objectFit: 'cover',
+                        width: '100%',
+                        height: '100%',
+                      }}
+                    />
+
                     <Box
                       sx={{
                         padding: 1,
@@ -207,17 +229,6 @@ const IndexPage = () => {
                     >
                       <Badge>id: {release.id}</Badge>
                     </Box>
-
-                    <TImage
-                      title={`Cover art for “${release.basic_information.title}”`}
-                      loading="lazy"
-                      src={release.basic_information.cover_image}
-                      sx={{
-                        objectFit: 'cover',
-                        width: '100%',
-                        height: '100%',
-                      }}
-                    />
                   </AspectRatio>
                 </Card>
               ))}
@@ -246,9 +257,12 @@ const IndexPage = () => {
                 borderColor: 'muted',
               }}
             >
-              <TImage
+              <Img
                 title={`Cover art for “${releases[48].basic_information.title}”`}
-                src={releases[48].basic_information.cover_image}
+                fluid={
+                  releases[48].basic_information.cover_image.childImageSharp
+                    .fluid
+                }
                 sx={{
                   objectFit: 'cover',
                   width: '100%',

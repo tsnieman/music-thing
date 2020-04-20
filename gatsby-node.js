@@ -5,6 +5,7 @@
  */
 
 const fetch = require(`node-fetch`)
+const { createRemoteFileNode } = require(`gatsby-source-filesystem`)
 
 const DISCOGS_TOKEN = `maSnEZtPwLRMXfgzfpjkAMeZMXvzendkTldZVKup`
 
@@ -12,6 +13,7 @@ exports.sourceNodes = async ({
   actions: { createNode },
   createContentDigest,
   createNodeId,
+  getCache,
 }) => {
   // get data from Discogs at build time
   const result = await fetch(
@@ -31,10 +33,30 @@ exports.sourceNodes = async ({
     releases.push(...releasePage)
   }
 
-  releases.forEach((release, i) => {
+  for (release of releases) {
+    const releaseId = createNodeId(release.instance_id)
+
+    let fileNode
+
+    try {
+      fileNode = await createRemoteFileNode({
+        url: release.basic_information.cover_image,
+        parentNodeId: releaseId,
+        getCache,
+        createNode,
+        createNodeId,
+      })
+    } catch (e) {
+      console.log({ e })
+    }
+
+    if (fileNode) {
+      release.basic_information.cover_image___NODE = fileNode.id
+    }
+
     createNode({
       ...release,
-      id: createNodeId(release.instance_id),
+      id: releaseId,
       parent: null,
       children: [],
       internal: {
@@ -43,5 +65,5 @@ exports.sourceNodes = async ({
         contentDigest: createContentDigest(release),
       },
     })
-  })
+  }
 }
