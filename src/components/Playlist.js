@@ -15,9 +15,9 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 
 const Playlist = () => (
   <DragDropContext onDragEnd={console.log}>
-    <Droppable droppableId="droppable" ignoreContainerClipping mode="virtual">
+    <Droppable droppableId="droppable">
       {(provided, snapshot) => (
-        <div
+        <Box
           {...provided.droppableProps}
           ref={provided.innerRef}
           sx={{
@@ -61,7 +61,7 @@ const Playlist = () => (
                 )}
               </Draggable>
             ))}
-        </div>
+        </Box>
       )}
     </Droppable>
   </DragDropContext>
