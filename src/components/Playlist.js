@@ -75,8 +75,8 @@ const Playlist = () => {
                       provided.draggableProps.style
                     )}
                     sx={{
-                      // py: 1,
-                      // px: 2,
+                      py: 1,
+                      px: 2,
                       border: '1px solid',
                       borderColor: 'border',
 
