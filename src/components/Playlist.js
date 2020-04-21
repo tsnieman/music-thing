@@ -1,6 +1,14 @@
 /** @jsx jsx */
+import * as React from 'react'
 import { jsx, Box, Text } from 'theme-ui'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+
+const getItems = (count) =>
+  Array.from({ length: count }, (v, k) => k).map((k) => ({
+    id: `track-${k}`,
+    title: `Trackname ${k}`,
+    artist: `Artist name`,
+  }))
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
@@ -13,28 +21,50 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   ...draggableStyle,
 })
 
-const Playlist = () => (
-  <DragDropContext onDragEnd={console.log}>
-    <Droppable droppableId="droppable">
-      {(provided, snapshot) => (
-        <Box
-          {...provided.droppableProps}
-          ref={provided.innerRef}
-          sx={{
-            // Specificity hack
-            '& > * + *[class]': {
-              borderTop: 0,
-            },
-          }}
-        >
-          {Array(45)
-            .fill(0)
-            .map((i, index) => (
-              <Draggable
-                key={String(index)}
-                draggableId={String(index)}
-                index={index}
-              >
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list)
+  const [removed] = result.splice(startIndex, 1)
+  result.splice(endIndex, 0, removed)
+
+  return result
+}
+
+const Playlist = () => {
+  const [items, setItems] = React.useState(getItems(100))
+
+  const onDragEnd = (result) => {
+    // dropped outside the list
+    if (!result.destination) {
+      return
+    }
+
+    const newOrder = reorder(
+      items,
+      result.source.index,
+      result.destination.index
+    )
+
+    console.log({ result })
+
+    setItems(newOrder)
+  }
+
+  return (
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="droppable">
+        {(provided, snapshot) => (
+          <Box
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            sx={{
+              // Specificity hack
+              '& > * + *[class]': {
+                borderTop: 0,
+              },
+            }}
+          >
+            {items.map(({ id, title, artist }, index) => (
+              <Draggable key={id} draggableId={id} index={index}>
                 {(provided, snapshot) => (
                   <Box
                     ref={provided.innerRef}
@@ -45,6 +75,8 @@ const Playlist = () => (
                       provided.draggableProps.style
                     )}
                     sx={{
+                      // py: 1,
+                      // px: 2,
                       border: '1px solid',
                       borderColor: 'border',
 
@@ -54,17 +86,22 @@ const Playlist = () => (
                       },
                     }}
                   >
-                    <Text sx={{ fontWeight: 'bold' }}>{index}. Song</Text>
+                    <Text sx={{ fontWeight: 'bold' }}>
+                      {index}. {title}
+                    </Text>
 
-                    <Text sx={{ fontSize: 1 }}>Artist name</Text>
+                    <Text sx={{ fontSize: 1 }}>{artist}</Text>
                   </Box>
                 )}
               </Draggable>
             ))}
-        </Box>
-      )}
-    </Droppable>
-  </DragDropContext>
-)
+
+            {provided.placeholder}
+          </Box>
+        )}
+      </Droppable>
+    </DragDropContext>
+  )
+}
 
 export default Playlist
