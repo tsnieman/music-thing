@@ -4,10 +4,10 @@ import { jsx, Box, Flex, Grid } from 'theme-ui'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 
-import NavControls from './NavControls'
-import AlbumGrid from './AlbumGrid'
-import NowPlaying from './NowPlaying'
-import Playlist from './Playlist'
+import NavControls from '../components/NavControls'
+import AlbumGrid from '../components/AlbumGrid'
+import NowPlaying from '../components/NowPlaying'
+import Playlist from '../components/Playlist'
 
 const IndexPage = () => {
   return (
