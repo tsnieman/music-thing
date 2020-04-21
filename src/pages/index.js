@@ -1,5 +1,4 @@
 /** @jsx jsx */
-import { useStaticQuery, graphql } from 'gatsby'
 import { jsx, Box, Flex, Grid } from 'theme-ui'
 
 import Layout from '../components/layout'
@@ -11,33 +10,6 @@ import NowPlaying from './NowPlaying'
 import Playlist from './Playlist'
 
 const IndexPage = () => {
-  const {
-    allCollectionRelease: { edges },
-  } = useStaticQuery(
-    graphql`
-      query {
-        allCollectionRelease {
-          edges {
-            node {
-              id
-              basic_information {
-                id
-                title
-                cover_image {
-                  childImageSharp {
-                    fluid(cropFocus: CENTER, maxWidth: 1000, maxHeight: 1000) {
-                      ...GatsbyImageSharpFluid_withWebp
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    `
-  )
-
   return (
     <Layout
       sx={{

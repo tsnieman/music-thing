@@ -12,7 +12,6 @@ import {
   Flex,
   Grid,
   Label,
-  NavLink,
   Slider,
   Text,
 } from 'theme-ui'

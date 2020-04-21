@@ -1,13 +1,5 @@
 /** @jsx jsx */
-import * as React from 'react'
-import { jsx, Box, Flex, NavLink } from 'theme-ui'
-
-import Layout from '../components/layout'
-import SEO from '../components/seo'
-
-import AlbumGrid from './AlbumGrid'
-import NowPlaying from './NowPlaying'
-import Playlist from './Playlist'
+import { jsx, Flex, NavLink } from 'theme-ui'
 
 const NavControls = () => (
   <Flex
