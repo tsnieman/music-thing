@@ -44,8 +44,6 @@ const Playlist = () => {
       result.destination.index
     )
 
-    console.log({ result })
-
     setItems(newOrder)
   }
 
