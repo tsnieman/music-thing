@@ -97,7 +97,7 @@ const AlbumGrid = () => {
               id="album-size"
               ref={albumSizeElement}
               defaultValue={albumSize}
-              onChange={(e) => setAlbumSize(e.target.value)}
+              onInput={(e) => setAlbumSize(e.target.value)}
               min={2}
               max={12}
               sx={{ transform: 'scaleX(-1)' }}
