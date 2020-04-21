@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { useStaticQuery, graphql } from 'gatsby'
 import Img from 'gatsby-image'
-import React from 'react'
+import * as React from 'react'
 import {
   jsx,
   AspectRatio,
@@ -21,6 +21,8 @@ import createPersistedState from 'use-persisted-state'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
+
+import Playlist from './Playlist'
 
 const useAlbumSizeState = createPersistedState('albumSize')
 
@@ -247,6 +249,9 @@ const IndexPage = () => {
               // position: 'relative'
               position: 'sticky',
               top: 0,
+
+              // Hack so that Draggables dont show above this.
+              zIndex: 9999, // TODO use variable.
             }}
           >
             <AspectRatio
@@ -297,35 +302,8 @@ const IndexPage = () => {
             </IconButton>
           </Box>
 
-          <Box
-            pb={4}
-            sx={{
-              // Specificity hack
-              '& > * + *[class]': {
-                borderTop: 0,
-              },
-            }}
-          >
-            {Array(45)
-              .fill(0)
-              .map((i, index) => (
-                <Box
-                  key={index}
-                  p={2}
-                  sx={{
-                    border: '1px solid',
-                    borderColor: 'border',
-
-                    '&:hover': {
-                      // TODO why doesn't `muted` work here?
-                      background: (theme) => theme.colors.muted,
-                    },
-                  }}
-                >
-                  <Text sx={{ fontWeight: 'bold' }}>Song</Text>
-                  <Text sx={{ fontSize: 1 }}>Artist name</Text>
-                </Box>
-              ))}
+          <Box pb={5}>
+            <Playlist />
           </Box>
         </Box>
       </Grid>
