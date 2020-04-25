@@ -5,7 +5,6 @@ import { Box, Button, Flex, Grid, Link as TLink, useColorMode } from 'theme-ui'
 
 const Header = ({ siteTitle }) => {
   const [colorMode, setColorMode] = useColorMode()
-
   return (
     <Box as="header" bg="primary" p={2}>
       <Flex sx={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -13,13 +12,17 @@ const Header = ({ siteTitle }) => {
           {siteTitle}
         </TLink>
 
-        <Grid columns={2} gap={2} ml="auto">
-          <Button as={Link} to="/about/" ml={2}>
+        <Grid columns={3} gap={2} ml="auto">
+          <Button as={Link} to="/app" ml={2}>
+            App
+          </Button>
+
+          <Button as={Link} to="/about" ml={2}>
             About
           </Button>
 
           <Button
-            variant="secondary"
+            variant={colorMode === 'default' ? 'primary' : 'secondary'}
             sx={{ cursor: 'pointer' }}
             onClick={(e) => {
               setColorMode(colorMode === 'default' ? 'dark' : 'default')

@@ -1,5 +1,14 @@
 /** @jsx jsx */
-import { jsx, Flex, NavLink } from 'theme-ui'
+import { jsx, Box, Flex } from 'theme-ui'
+import { Link } from '@reach/router'
+
+const isActive = ({ isCurrent }) => ({ 'data-active': isCurrent })
+
+const LINKS = [
+  ['Home', './'],
+  ['Artists', './artists'],
+  ['Albums', './albums'],
+]
 
 const NavControls = () => (
   <Flex
@@ -9,14 +18,13 @@ const NavControls = () => (
       borderColor: 'border',
 
       '& > *': {
-        borderLeft: '1px solid transparent',
-        borderLeftWidth: '5px',
-        padding: 2,
         transition: '0.1s all linear',
-        cursor: 'pointer',
+        borderLeft: '0.5em solid transparent',
+        color: 'primary',
+        textDecoration: 'none',
 
         '&:hover': {
-          borderColor: 'primary',
+          borderLeftColor: 'primary',
         },
 
         '&[data-active]': {
@@ -26,9 +34,11 @@ const NavControls = () => (
       },
     }}
   >
-    <NavLink>Home</NavLink>
-    <NavLink>Artists</NavLink>
-    <NavLink data-active>Albums</NavLink>
+    {LINKS.map(([label, to]) => (
+      <Link to={to} getProps={isActive} key={to}>
+        <Box p={2}>{label}</Box>
+      </Link>
+    ))}
   </Flex>
 )
 

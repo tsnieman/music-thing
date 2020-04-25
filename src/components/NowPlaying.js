@@ -31,8 +31,6 @@ const NowPlaying = () => {
         ratio={1 / 1}
         sx={{
           bg: 'white',
-          border: '1px solid',
-          borderColor: 'muted',
         }}
       >
         <Img

@@ -9,8 +9,19 @@ const { createRemoteFileNode } = require(`gatsby-source-filesystem`)
 
 const DISCOGS_TOKEN = `maSnEZtPwLRMXfgzfpjkAMeZMXvzendkTldZVKup`
 
+exports.onCreatePage = async ({ page, actions: { createPage } }) => {
+  // Client-side pages (could automate via gatsby-plugin-create-client-paths)
+  if (page.path.match(/^\/app/)) {
+    page.matchPath = '/app/*'
+
+    // Update the page.
+    createPage(page)
+  }
+}
+
 exports.sourceNodes = async ({
-  actions: { createNode },
+  page,
+  actions: { createNode, createPage },
   createContentDigest,
   createNodeId,
   getCache,

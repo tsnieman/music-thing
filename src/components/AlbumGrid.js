@@ -19,7 +19,7 @@ import createPersistedState from 'use-persisted-state'
 
 const useAlbumSizeState = createPersistedState('albumSize')
 
-const AlbumGrid = () => {
+const AlbumGrid = (props) => {
   const {
     allCollectionRelease: { edges },
   } = useStaticQuery(
@@ -64,7 +64,7 @@ const AlbumGrid = () => {
   }, [albumSize])
 
   return (
-    <>
+    <Box {...props} data-hi>
       <Flex sx={{ flexDirection: 'row' }} p={2}>
         <Flex sx={{ flexDirection: 'row' }} p={2} ml="auto">
           <Button
@@ -168,7 +168,7 @@ const AlbumGrid = () => {
           ))}
         </Grid>
       </Box>
-    </>
+    </Box>
   )
 }
 
