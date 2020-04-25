@@ -2,6 +2,7 @@
 import * as React from 'react'
 import { jsx, Box, Text } from 'theme-ui'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+import VisuallyHidden from '@reach/visually-hidden'
 
 const getItems = (count) =>
   Array.from({ length: count }, (v, k) => k).map((k) => ({
@@ -86,6 +87,7 @@ const Playlist = () => {
                     }}
                   >
                     <Text sx={{ fontWeight: 'bold' }}>
+                      <VisuallyHidden>Track </VisuallyHidden>
                       {index}. {title}
                     </Text>
 
