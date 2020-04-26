@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Box, Flex } from 'theme-ui'
+import { jsx, Box } from 'theme-ui'
 import { Link } from '@reach/router'
 
 const isActive = ({ isCurrent }) => ({ 'data-active': isCurrent })
@@ -10,36 +10,35 @@ const LINKS = [
   ['Albums', './albums'],
 ]
 
-const NavControls = () => (
-  <Flex
-    sx={{
-      flexDirection: 'column',
-      borderRight: '1px solid',
-      borderColor: 'border',
-
-      '& > *': {
-        transition: '0.1s all linear',
-        borderLeft: '0.5em solid transparent',
-        color: 'primary',
-        textDecoration: 'none',
-
-        '&:hover': {
-          borderLeftColor: 'primary',
-        },
-
-        '&[data-active]': {
-          backgroundColor: 'primary',
-          color: 'buttonTextPrimary',
-        },
-      },
-    }}
-  >
+const NavControls = (props) => (
+  <Box {...props}>
     {LINKS.map(([label, to]) => (
-      <Link to={to} getProps={isActive} key={to}>
-        <Box p={2}>{label}</Box>
+      <Link
+        to={to}
+        getProps={isActive}
+        key={to}
+        sx={{
+          display: 'block',
+          padding: 2,
+          transition: '0.1s all linear',
+          borderLeft: '0.5em solid transparent',
+          color: 'primary',
+          textDecoration: 'none',
+
+          '&:hover': {
+            borderLeftColor: 'primary',
+          },
+
+          '&[data-active="true"]': {
+            backgroundColor: 'primary',
+            color: 'buttonTextPrimary',
+          },
+        }}
+      >
+        {label}
       </Link>
     ))}
-  </Flex>
+  </Box>
 )
 
 export default NavControls

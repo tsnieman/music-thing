@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Flex } from 'theme-ui'
+import { jsx, Grid } from 'theme-ui'
 import { Router } from '@reach/router'
 
 import Layout from '../components/layout'
@@ -10,10 +10,11 @@ import Library from '../components/Library'
 const AppPage = () => {
   return (
     <Layout
-      as={Flex}
+      as={Grid}
       sx={{
-        flexDirection: 'column',
         height: '100%',
+        gridTemplateRows: 'min-content 1fr',
+        rowGap: 0,
       }}
     >
       <SEO title="App" />
@@ -21,7 +22,9 @@ const AppPage = () => {
       <Router
         basepath="/app"
         sx={{
-          flex: 1,
+          display: 'grid',
+          gridTemplateRows: 'minmax(0, 1fr)', // overflow: auto hack
+          rowGap: 0,
 
           /* TODO not sure why this overflow is required */
           overflow: 'hidden',

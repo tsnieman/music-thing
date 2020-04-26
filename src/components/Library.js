@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Box, Flex, Grid } from 'theme-ui'
+import { jsx, Box, Grid } from 'theme-ui'
 import { Router } from '@reach/router'
 
 import SEO from '../components/seo'
@@ -14,11 +14,10 @@ import Artists from '../components/Artists'
 
 const LibraryPage = () => {
   return (
-    <Flex
+    <Grid
       sx={{
-        flex: 1,
-        flexDirection: 'column',
         maxHeight: '100%',
+        gridTemplateRows: 'minmax(0, 1fr)', // overflow: auto hack
       }}
     >
       <SEO title="App" />
@@ -28,44 +27,28 @@ const LibraryPage = () => {
         gap={0}
         columns="30ch 1fr 30ch"
         sx={{
-          flex: '1 1 auto',
-          maxHeight: '100%',
-          minHeight: 0,
-
           '& > *': {
-            minHeight: 0,
             overflow: 'auto',
           },
         }}
       >
-        <Flex as="nav" sx={{ '& > *': { width: '100%' } }}>
+        <Box
+          as="nav"
+          sx={{
+            borderRight: '1px solid',
+            borderColor: 'border',
+          }}
+        >
           <NavControls />
-        </Flex>
+        </Box>
 
-        <Flex bg="muted" sx={{ flexDirection: 'column' }}>
-          <Router
-            sx={{
-              flex: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              maxHeight: '100%',
-            }}
-          >
-            <AlbumGrid
-              path="/albums"
-              as={Flex}
-              sx={{
-                flex: 1,
-                flexDirection: 'column',
-                maxHeight: '100%',
-              }}
-            />
+        <Grid as={Router} bg="muted" rows="1fr">
+          <AlbumGrid path="/albums" />
 
-            <Artists path="/artists" />
+          <Artists path="/artists" />
 
-            <LibraryHome path="/" />
-          </Router>
-        </Flex>
+          <LibraryHome path="/" />
+        </Grid>
 
         <Box
           sx={{
@@ -91,7 +74,7 @@ const LibraryPage = () => {
           </Box>
         </Box>
       </Grid>
-    </Flex>
+    </Grid>
   )
 }
 

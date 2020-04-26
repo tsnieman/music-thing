@@ -56,6 +56,8 @@ const Playlist = () => {
             {...provided.droppableProps}
             ref={provided.innerRef}
             sx={{
+              width: '100%',
+
               // Specificity hack
               '& > * + *[class]': {
                 borderTop: 0,

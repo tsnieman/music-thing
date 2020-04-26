@@ -9,7 +9,6 @@ import {
   Box,
   Button,
   Card,
-  Flex,
   Grid,
   Label,
   Slider,
@@ -64,57 +63,56 @@ const AlbumGrid = (props) => {
   }, [albumSize])
 
   return (
-    <Box {...props} data-hi>
-      <Flex sx={{ flexDirection: 'row' }} p={2}>
-        <Flex sx={{ flexDirection: 'row' }} p={2} ml="auto">
-          <Button
-            variant="primary"
-            sx={{
-              cursor: 'pointer',
-              width: 'min-content',
-              whiteSpace: 'nowrap',
-            }}
-            onClick={(e) => {
-              setAlbumSnap(albumSnap === 'none' ? 'mandatory' : 'none')
-            }}
-            mr={1}
-          >
-            Snap: {albumSnap}
-          </Button>
+    <Grid {...props}>
+      <Grid
+        sx={{
+          justifySelf: 'end',
+          // whiteSpace: 'nowrap',
+          gridTemplateColumns: 'min-content 25ch',
+        }}
+        p={2}
+      >
+        <Button
+          variant="primary"
+          sx={{
+            cursor: 'pointer',
+            width: 'min-content',
+            whiteSpace: 'nowrap',
+          }}
+          onClick={(e) => {
+            setAlbumSnap(albumSnap === 'none' ? 'mandatory' : 'none')
+          }}
+          mr={1}
+        >
+          Snap: {albumSnap}
+        </Button>
 
-          <Grid
-            columns="min-content 1fr"
-            sx={{
-              alignItems: 'center',
-              padding: 2,
-            }}
-          >
-            <Label htmlFor="album-size" sx={{ whiteSpace: 'nowrap' }}>
-              Album size:
-            </Label>
+        <Grid
+          columns="min-content 1fr"
+          sx={{
+            alignItems: 'center',
+            padding: 2,
+          }}
+        >
+          <Label htmlFor="album-size" sx={{ whiteSpace: 'nowrap' }}>
+            Album size:
+          </Label>
 
-            <Slider
-              id="album-size"
-              ref={albumSizeElement}
-              defaultValue={albumSize}
-              onInput={(e) => setAlbumSize(e.target.value)}
-              min={2}
-              max={12}
-              sx={{ transform: 'scaleX(-1)' }}
-            />
-          </Grid>
-        </Flex>
-      </Flex>
+          <Slider
+            id="album-size"
+            ref={albumSizeElement}
+            defaultValue={albumSize}
+            onInput={(e) => setAlbumSize(e.target.value)}
+            min={2}
+            max={12}
+            sx={{ transform: 'scaleX(-1)' }}
+          />
+        </Grid>
+      </Grid>
 
       <Box
         sx={{
           padding: 2,
-
-          // Vertical scrollbar
-          flex: '1 1 auto',
-          overflow: 'auto',
-          height: 0,
-
           scrollSnapType: `y ${albumSnap}`,
         }}
       >
@@ -168,7 +166,7 @@ const AlbumGrid = (props) => {
           ))}
         </Grid>
       </Box>
-    </Box>
+    </Grid>
   )
 }
 
