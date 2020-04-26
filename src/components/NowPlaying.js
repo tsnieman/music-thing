@@ -54,7 +54,7 @@ const NowPlaying = () => {
           // left: '50%',
           // transform: 'translateX(-50%) translateY(-50%)',
           padding: 1,
-          backgroundColor: 'white',
+          backgroundColor: 'background',
         }}
       >
         <svg
