@@ -2,7 +2,25 @@
 import { jsx, Box } from 'theme-ui'
 import { Link } from '@reach/router'
 
-const isActive = ({ isCurrent }) => ({ 'data-active': isCurrent })
+const isActive = ({
+  isCurrent,
+  isPartiallyCurrent,
+  href,
+  location,
+  ...others
+}) => {
+  // This route should only be active when an exact match, but it's an
+  // index/top-level/dashboard sort of situation. Here's a kludgey workaround:
+  if (href === '/app' || href === '/app/') {
+    if (location.pathname === '/app' || location.pathname === '/app/') {
+      return { 'data-active': true }
+    } else {
+      return { 'data-active': false }
+    }
+  }
+
+  return { 'data-active': isPartiallyCurrent }
+}
 
 const LINKS = [
   ['Home', './'],
