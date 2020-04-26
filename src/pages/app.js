@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import { jsx, Grid } from 'theme-ui'
+import { useEffect, useState } from 'react'
+import { jsx, Box, Grid, Text } from 'theme-ui'
 import { Router } from '@reach/router'
 
 import Layout from '../components/layout'
@@ -8,6 +9,21 @@ import SEO from '../components/seo'
 import Library from '../components/Library'
 
 const AppPage = () => {
+  // Since `/app/*` pages are client-side only (unlike other gatsby pages), this
+  // is used to detect whether the page is still loading or not to avoid
+  // flashing the wrong page when landing on a `/app/*` route.
+  const [isClient, setClient] = useState(false)
+  useEffect(() => {
+    setClient(true)
+  }, [])
+  if (!isClient) {
+    return (
+      <Box>
+        <Text>Loading...</Text>
+      </Box>
+    )
+  }
+
   return (
     <Layout
       as={Grid}
