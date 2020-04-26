@@ -63,7 +63,12 @@ const AlbumGrid = (props) => {
   }, [albumSize])
 
   return (
-    <Grid {...props}>
+    <Grid
+      {...props}
+      sx={{
+        gridTemplateRows: 'min-content 1fr',
+      }}
+    >
       <Grid
         sx={{
           justifySelf: 'end',
