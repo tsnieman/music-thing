@@ -3,3 +3,8 @@
 
 [[plugins]]
 package = "netlify-plugin-gatsby-cache"
+
+[[redirects]]
+  from = "/app/*"
+  to = "/app/index.html"
+  status = 200
