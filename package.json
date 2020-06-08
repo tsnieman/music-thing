@@ -12,7 +12,7 @@
     "gatsby-plugin-manifest": "^2.4.10",
     "gatsby-plugin-offline": "^3.2.8",
     "gatsby-plugin-preact": "^3.3.2",
-    "gatsby-plugin-react-helmet": "^3.3.2",
+    "gatsby-plugin-react-helmet": "^3.3.3",
     "gatsby-plugin-sharp": "^2.6.10",
     "gatsby-plugin-theme-ui": "^0.3.0",
     "gatsby-source-filesystem": "^2.3.10",
