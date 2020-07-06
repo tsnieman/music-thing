@@ -7,7 +7,7 @@
   "dependencies": {
     "@reach/visually-hidden": "^0.10.1",
     "@theme-ui/color": "^0.3.1",
-    "gatsby": "^2.21.35",
+    "gatsby": "^2.23.21",
     "gatsby-image": "^2.4.12",
     "gatsby-plugin-manifest": "^2.4.17",
     "gatsby-plugin-offline": "^3.2.16",
