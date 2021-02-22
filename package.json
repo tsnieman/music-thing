@@ -27,7 +27,7 @@
     "use-persisted-state": "^0.3.0"
   },
   "devDependencies": {
-    "husky": "^4.2.5",
+    "husky": "^5.1.0",
     "prettier": "^2.0.5",
     "pretty-quick": "^2.0.1"
   },
